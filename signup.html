@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sign Up - StudyBot AI</title>
+
+    <link rel="stylesheet" href="style1.css">
+
+    <style>
+        /* Signup button - always visible */
+
+        #createAccountBtn {
+            display: block !important;
+            width: 100%;
+            padding: 14px;
+            margin-top: 22px;
+            border: none;
+            border-radius: 10px;
+            background: #a5a5a5;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: not-allowed;
+            transition: 0.3s;
+        }
+
+        #createAccountBtn:enabled {
+            background: linear-gradient(90deg, #4f46e5, #9333ea);
+            cursor: pointer;
+        }
+
+        #createAccountBtn:enabled:hover {
+            background: linear-gradient(90deg, #3730a3, #7e22ce);
+        }
+
+        .password-hint {
+            display: block;
+            margin-top: 9px;
+            margin-bottom: 12px;
+            color: #6b7280;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .signup-show,
+        .terms {
+            margin-top: 15px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .signup-show label,
+        .terms label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: normal;
+        }
+
+        .signup-show input,
+        .terms input {
+            width: auto;
+            accent-color: #4f46e5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="signup-container">
+
+        <div class="signup-card">
+
+            <h1>🎓 StudyBot AI</h1>
+
+            <h2>Create Your Account</h2>
+
+            <p>Start your learning journey with us!</p>
+
+            <form id="signupForm">
+
+                <!-- FULL NAME -->
+
+                <label for="fullName">Full Name</label>
+
+                <input
+                    type="text"
+                    id="fullName"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+                <!-- EMAIL -->
+
+                <label for="email">Email Address</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+                <!-- CREATE PASSWORD -->
+
+                <label for="newPassword">Create Password</label>
+
+                <input
+                    type="password"
+                    id="newPassword"
+                    placeholder="Create a password"
+                    required
+                >
+
+                <small class="password-hint">
+                    Create a strong password containing:
+                    <br>• At least one uppercase letter (A-Z)
+                    <br>• At least one lowercase letter (a-z)
+                    <br>• At least one number (0-9)
+                    <br>• At least one special character (@, #, $, !)
+                    <br>• Minimum 8 characters
+                </small>
+
+                <!-- CONFIRM PASSWORD -->
+
+                <label for="confirmPassword">
+                    Confirm Your Password
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm your password"
+                    required
+                >
+
+                <!-- SHOW PASSWORD -->
+
+                <div class="signup-show">
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="showSignupPassword"
+                        >
+                        Show Password
+                    </label>
+                </div>
+
+                <!-- TERMS AND CONDITIONS -->
+
+                <div class="terms">
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="agreeTerms"
+                            required
+                        >
+                        I agree to the Terms and Conditions
+                    </label>
+                </div>
+
+                <!-- CREATE ACCOUNT BUTTON - ALWAYS VISIBLE -->
+
+                <button
+                    type="submit"
+                    id="createAccountBtn"
+                    disabled
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+            <p class="login-link">
+                Already have an account?
+                <a href="login.html">Login</a>
+            </p>
+
+            <a href="index1.html" class="signup-back">
+                ← Back to Home
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        // Get HTML elements
+
+        const form = document.getElementById("signupForm");
+
+        const password = document.getElementById("newPassword");
+
+        const confirmPassword =
+            document.getElementById("confirmPassword");
+
+        const showPassword =
+            document.getElementById("showSignupPassword");
+
+        const agreeTerms =
+            document.getElementById("agreeTerms");
+
+        const createBtn =
+            document.getElementById("createAccountBtn");
+
+
+        // Strong password requirements
+
+        const strongPassword =
+            /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9\s]).{8,}$/;
+
+
+        // Show or hide BOTH passwords
+
+        showPassword.addEventListener("change", function () {
+
+            const type = this.checked ? "text" : "password";
+
+            password.type = type;
+
+            confirmPassword.type = type;
+
+        });
+
+
+        // Check all signup conditions
+
+        function checkSignup() {
+
+            const strong =
+                strongPassword.test(password.value);
+
+            const matching =
+                password.value !== "" &&
+                password.value === confirmPassword.value;
+
+            const termsAccepted =
+                agreeTerms.checked;
+
+            // Enable only when every condition is correct
+
+            createBtn.disabled = !(
+                strong &&
+                matching &&
+                termsAccepted
+            );
+
+        }
+
+
+        // Check whenever the student types
+
+        password.addEventListener("input", checkSignup);
+
+        confirmPassword.addEventListener("input", checkSignup);
+
+        agreeTerms.addEventListener("change", checkSignup);
+
+
+        // Final submission
+
+        form.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            checkSignup();
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            if (!strongPassword.test(password.value)) {
+                alert("Please enter a strong password.");
+                password.focus();
+                return;
+            }
+
+            if (password.value !== confirmPassword.value) {
+                alert("Your passwords do not match.");
+                confirmPassword.focus();
+                return;
+            }
+
+            if (!agreeTerms.checked) {
+                alert("Please agree to the Terms and Conditions.");
+                return;
+            }
+
+            alert("All signup validations passed successfully!");
+
+        });
+
+    </script>
+
+</body>
+</html>

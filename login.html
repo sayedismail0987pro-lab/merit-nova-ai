@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - StudyBot AI</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+
+<body>
+
+    <section class="login-container">
+
+        <div class="login-card">
+
+            <h1>🎓 StudyBot AI</h1>
+            <h2>Welcome Back!</h2>
+            <p>Login to continue your learning journey.</p>
+           
+<form>
+    <label>Email Address</label>
+    <input type="email"
+           placeholder="Enter your email"
+           required>
+
+    <label>Password</label>
+    <input type="password"
+           id="password"
+           placeholder="Enter your password"
+           required>
+
+    <div class="login-options">
+
+        <label class="show-password">
+            <input type="checkbox" id="showPassword">
+            Show Password
+        </label>
+
+        <a href="forgot-password.html">
+            Forgot Password?
+        </a>
+
+    </div>
+
+    <button type="submit">Login</button>
+</form>
+
+            <p class="signup-link">
+                Don't have an account?
+                <a href="signup.html">Sign Up</a>
+            </p>
+
+            <a href="index1.html" class="back-link">
+                ← Back to Home
+            </a>
+
+        </div>
+
+    </section>
+
+<script>
+    const passwordInput = document.getElementById("password");
+    const showPassword = document.getElementById("showPassword");
+
+    showPassword.addEventListener("change", function () {
+        if (this.checked) {
+            passwordInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+        }
+    });
+</script>
+
+</body>
+</html>

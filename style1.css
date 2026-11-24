@@ -1,0 +1,1369 @@
+
+/* =========================================
+   STUDYBOT AI
+   COMPLETE WEBSITE DESIGN
+   Blue + Purple + White Theme
+   ========================================= */
+
+/* ---------- 1. GLOBAL SETTINGS ---------- */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #26345c;
+    background: #f7f8ff;
+}
+
+a {
+    transition: 0.25s ease;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+
+/* =========================================
+   2. HOMEPAGE
+   ========================================= */
+
+/* Navigation */
+
+.navbar {
+    width: 100%;
+    min-height: 82px;
+    padding: 15px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(40, 45, 100, 0.07);
+    position: relative;
+    z-index: 10;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #27346c;
+    font-size: 23px;
+    font-weight: bold;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.logo span:last-child {
+    color: #8551dc;
+}
+
+.logo-icon {
+    font-size: 27px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.nav-links a {
+    color: #465170;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #7651df;
+}
+
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.login-btn,
+.signup-btn {
+    display: inline-block;
+    padding: 11px 22px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.login-btn {
+    color: #624bd1;
+    border: 1px solid #7651df;
+}
+
+.login-btn:hover {
+    background: #f0edff;
+}
+
+.signup-btn {
+    color: white;
+    background: linear-gradient(100deg, #5145cd, #9149d8);
+}
+
+.signup-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(81, 69, 205, 0.2);
+}
+
+
+/* Homepage Hero */
+
+.hero {
+    min-height: 570px;
+    padding: 80px 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 55px;
+    background: linear-gradient(120deg, #edf1ff, #f2eaff, #ffffff);
+    overflow: hidden;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 620px;
+}
+
+.hero-label {
+    display: inline-block;
+    padding: 11px 18px;
+    border-radius: 25px;
+    background: #e5ddff;
+    color: #6545c7;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.hero h1 {
+    margin: 25px 0 18px;
+    color: #202d63;
+    font-size: clamp(40px, 5vw, 62px);
+    line-height: 1.15;
+}
+
+.hero h1 span {
+    display: block;
+    color: #8050dc;
+}
+
+.hero-content > p {
+    max-width: 570px;
+    color: #65708c;
+    font-size: 17px;
+    line-height: 1.9;
+}
+
+.hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.primary-btn,
+.secondary-btn {
+    display: inline-block;
+    padding: 15px 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.primary-btn {
+    color: white;
+    background: linear-gradient(100deg, #5145cd, #9149d8);
+    box-shadow: 0 7px 18px rgba(81, 69, 205, 0.2);
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(81, 69, 205, 0.25);
+}
+
+.secondary-btn {
+    color: #624bd1;
+    border: 1px solid #c8bdf5;
+    background: white;
+}
+
+.secondary-btn:hover {
+    background: #f0edff;
+}
+
+.hero-trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 35px;
+    color: #596684;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+/* Hero Illustration */
+
+.hero-visual {
+    flex: 0 1 420px;
+    min-width: 260px;
+    min-height: 380px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual-circle {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #c9c5ff, #e6c9ff);
+    box-shadow: 0 20px 50px rgba(100, 70, 190, 0.15);
+}
+
+.robot-icon {
+    font-size: 65px;
+}
+
+.floating-card {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 19px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(40, 45, 100, 0.13);
+}
+
+.floating-card > span {
+    font-size: 27px;
+}
+
+.floating-card strong,
+.floating-card small {
+    display: block;
+}
+
+.floating-card strong {
+    color: #303b69;
+    font-size: 13px;
+}
+
+.floating-card small {
+    margin-top: 5px;
+    color: #828ba3;
+    font-size: 11px;
+}
+
+.card-one {
+    top: 45px;
+    left: -5px;
+}
+
+.card-two {
+    right: -5px;
+    bottom: 45px;
+}
+
+
+/* Section Headings */
+
+.features-section,
+.subjects-section {
+    padding: 85px 8%;
+}
+
+.features-section {
+    background: #ffffff;
+}
+
+.subjects-section {
+    background: #f6f5ff;
+}
+
+.section-heading {
+    max-width: 680px;
+    margin: 0 auto 45px;
+    text-align: center;
+}
+
+.section-label {
+    color: #8551dc;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.section-heading h2 {
+    margin: 16px 0;
+    color: #26346c;
+    font-size: clamp(28px, 4vw, 39px);
+    line-height: 1.3;
+}
+
+.section-heading h2 span {
+    color: #8551dc;
+}
+
+.section-heading p {
+    color: #747e98;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+
+/* Feature Cards */
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+    max-width: 1150px;
+    margin: auto;
+}
+
+.feature-card {
+    padding: 32px 27px;
+    background: white;
+    border: 1px solid #e9e7fa;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(40, 45, 100, 0.06);
+    transition: 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 30px rgba(40, 45, 100, 0.12);
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 17px;
+    background: #efecff;
+    font-size: 29px;
+}
+
+.feature-card h3 {
+    margin: 22px 0 12px;
+    color: #303b70;
+    font-size: 20px;
+}
+
+.feature-card p {
+    color: #737d96;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.feature-card a {
+    display: inline-block;
+    margin-top: 12px;
+    color: #7651df;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.feature-card a:hover {
+    color: #a044d5;
+}
+
+
+/* Subject Cards */
+
+.subject-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 1150px;
+    margin: auto;
+}
+
+.subject-card {
+    padding: 27px 20px;
+    color: #303b70;
+    background: white;
+    border: 1px solid #e9e7fa;
+    border-radius: 18px;
+    text-align: center;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.subject-card:hover {
+    transform: translateY(-6px);
+    border-color: #b8a8f4;
+    box-shadow: 0 12px 25px rgba(70, 55, 150, 0.1);
+}
+
+.subject-card > span {
+    font-size: 38px;
+}
+
+.subject-card h3 {
+    margin: 17px 0 10px;
+    font-size: 17px;
+}
+
+.subject-card p {
+    color: #77819a;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* Call to Action */
+
+.cta-section {
+    padding: 70px 20px;
+    background: linear-gradient(110deg, #5145cd, #9149d8);
+    text-align: center;
+}
+
+.cta-section h2 {
+    color: white;
+    font-size: 32px;
+}
+
+.cta-section p {
+    margin: 15px 0 28px;
+    color: #eeeaff;
+    font-size: 15px;
+}
+
+.cta-section .primary-btn {
+    color: #5b45c8;
+    background: white;
+}
+
+
+/* Footer */
+
+.footer {
+    padding: 35px 20px;
+    background: #202a58;
+    text-align: center;
+}
+
+.footer .logo {
+    color: white;
+    justify-content: center;
+}
+
+.footer p {
+    color: #c5cbe0;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.footer .copyright {
+    margin-top: 22px;
+    color: #9fa9c8;
+    font-size: 12px;
+}
+
+
+/* =========================================
+   3. LOGIN PAGE
+   Split-screen layout
+   ========================================= */
+
+.login-container {
+    min-height: 100vh;
+    width: 100%;
+    padding: 45px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6%;
+    background: linear-gradient(135deg, #e7eaff, #f0e7ff, #f8f5ff);
+    font-family: Arial, sans-serif;
+}
+
+/* Promotional panel generated through CSS */
+
+.login-container::before {
+    content: "🎓\A\A StudyBot AI\A\A Learn smarter. Achieve more.\A\A Your personal learning companion for study notes, quizzes and AI-powered assistance.";
+    white-space: pre-line;
+    flex: 1;
+    max-width: 480px;
+    min-height: 480px;
+    padding: 55px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 28px;
+    background: linear-gradient(145deg, #5145cd, #7950db, #a34cda);
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 2;
+    text-align: center;
+    box-shadow: 0 18px 45px rgba(65, 50, 140, 0.2);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 450px;
+    padding: 40px;
+    background: white;
+    border: 1px solid #e8e7ff;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 0 18px 50px rgba(65, 50, 140, 0.12);
+}
+
+.login-card h1 {
+    margin: 0 0 25px;
+    color: #5145cd;
+    font-size: 28px;
+}
+
+.login-card h2 {
+    margin-bottom: 10px;
+    color: #202b55;
+    font-size: 27px;
+}
+
+.login-card p {
+    color: #68718a;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.login-card form {
+    margin-top: 27px;
+    text-align: left;
+}
+
+.login-card form > label {
+    display: block;
+    margin: 18px 0 8px;
+    color: #303b63;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.login-card input[type="email"],
+.login-card input[type="password"],
+.login-card input[type="text"] {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #dce0f0;
+    border-radius: 10px;
+    background: #fafaff;
+    font-size: 14px;
+}
+
+.login-card input:focus {
+    outline: none;
+    border-color: #7657e8;
+    box-shadow: 0 0 0 3px rgba(118, 87, 232, 0.12);
+}
+
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.login-options .show-password {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #59627b;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.login-options .show-password input {
+    width: auto;
+    accent-color: #6548d8;
+}
+
+.login-options a {
+    color: #6548d8;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-card button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 15px;
+    border: none;
+    border-radius: 11px;
+    background: linear-gradient(100deg, #5145cd, #9149d8);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-card button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(81, 69, 205, 0.25);
+}
+
+.login-card .signup-link {
+    margin-top: 24px;
+}
+
+.login-card .signup-link a,
+.login-card .back-link {
+    color: #6548d8;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-card .back-link {
+    display: inline-block;
+    margin-top: 15px;
+}
+
+
+/* =========================================
+   4. SIGNUP PAGE
+   Split-screen layout
+   ========================================= */
+
+.signup-container {
+    min-height: 100vh;
+    width: 100%;
+    padding: 40px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+    background: linear-gradient(135deg, #e7eaff, #f0e7ff, #f8f5ff);
+    font-family: Arial, sans-serif;
+}
+
+/* Signup promotional panel */
+
+.signup-container::before {
+    content: "✨\A\A Start Your Learning Journey\A\A Create your StudyBot AI account and discover smarter ways to learn.\A\A 📚 Study Notes     🤖 AI Assistance     📝 Quizzes";
+    white-space: pre-line;
+    flex: 1;
+    max-width: 460px;
+    min-height: 520px;
+    padding: 45px 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 28px;
+    background: linear-gradient(145deg, #5145cd, #7950db, #a34cda);
+    color: white;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 2;
+    text-align: center;
+    box-shadow: 0 18px 45px rgba(65, 50, 140, 0.2);
+}
+
+.signup-card {
+    width: 100%;
+    max-width: 480px;
+    padding: 35px;
+    background: white;
+    border: 1px solid #e8e7ff;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 0 18px 50px rgba(65, 50, 140, 0.12);
+}
+
+.signup-card h1 {
+    margin: 0 0 22px;
+    color: #5145cd;
+    font-size: 27px;
+}
+
+.signup-card h2 {
+    margin-bottom: 10px;
+    color: #202b55;
+    font-size: 25px;
+}
+
+.signup-card p {
+    color: #68718a;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.signup-card form {
+    margin-top: 22px;
+    text-align: left;
+}
+
+.signup-card form > label {
+    display: block;
+    margin: 14px 0 8px;
+    color: #303b63;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.signup-card input[type="text"],
+.signup-card input[type="email"],
+.signup-card input[type="password"] {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #dce0f0;
+    border-radius: 10px;
+    background: #fafaff;
+    font-size: 14px;
+}
+
+.signup-card input:focus {
+    outline: none;
+    border-color: #7657e8;
+    box-shadow: 0 0 0 3px rgba(118, 87, 232, 0.12);
+}
+
+.signup-card .password-hint {
+    display: block;
+    margin: 9px 0 12px;
+    color: #737b91;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.signup-show,
+.signup-card .terms {
+    margin-top: 15px;
+    color: #4c5674;
+    font-size: 13px;
+}
+
+.signup-show label,
+.signup-card .terms label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: normal;
+}
+
+.signup-show input,
+.signup-card .terms input {
+    width: auto;
+    accent-color: #6548d8;
+}
+
+.signup-card #createAccountBtn {
+    display: block !important;
+    width: 100%;
+    padding: 15px;
+    margin-top: 23px;
+    border: none;
+    border-radius: 11px;
+    background: #a5a5a5;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: not-allowed;
+    transition: 0.3s;
+}
+
+.signup-card #createAccountBtn:enabled {
+    background: linear-gradient(100deg, #5145cd, #9149d8);
+    cursor: pointer;
+}
+
+.signup-card #createAccountBtn:enabled:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(81, 69, 205, 0.25);
+}
+
+.signup-card .login-link {
+    margin-top: 22px;
+}
+
+.signup-card .login-link a,
+.signup-card .signup-back {
+    color: #6548d8;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.signup-card .signup-back {
+    display: inline-block;
+    margin-top: 14px;
+}
+
+
+/* =========================================
+   5. ABOUT PAGE
+   ========================================= */
+
+/* Header shared by About and Mathematics */
+
+body > header:not(.navbar) {
+    min-height: 75px;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    background: white;
+    box-shadow: 0 4px 18px rgba(40, 45, 100, 0.07);
+}
+
+body > header:not(.navbar) h2 {
+    margin: 0;
+    color: #5145cd;
+    font-size: 23px;
+}
+
+body > header:not(.navbar) nav {
+    display: flex;
+    gap: 25px;
+}
+
+body > header:not(.navbar) nav a {
+    color: #465170;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+body > header:not(.navbar) nav a:hover {
+    color: #8551dc;
+}
+
+.about-page {
+    width: calc(100% - 50px);
+    max-width: 1150px;
+    min-height: 75vh;
+    margin: 45px auto;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 45px;
+    background: linear-gradient(135deg, #5145cd, #7950db, #a34cda);
+    border-radius: 28px;
+    box-shadow: 0 18px 45px rgba(65, 50, 140, 0.18);
+}
+
+.my-photo {
+    flex: 0 0 260px;
+    text-align: center;
+}
+
+.my-photo img {
+    width: 260px;
+    height: 260px;
+    object-fit: cover;
+    object-position: center 30%;
+    border: 7px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px #a78bfa,
+                0 12px 30px rgba(0, 0, 0, 0.25);
+    transition: 0.3s ease;
+}
+
+.my-photo img:hover {
+    transform: scale(1.04);
+}
+
+.my-details {
+    flex: 1;
+    max-width: 650px;
+    padding: 35px;
+    background: white;
+    border-radius: 22px;
+    color: #303b63;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.my-details h1 {
+    margin-top: 0;
+    color: #5145cd;
+    font-size: 34px;
+}
+
+.my-details h2 {
+    margin-top: 23px;
+    color: #7651df;
+    font-size: 20px;
+}
+
+.my-details p {
+    color: #59627b;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.my-details strong {
+    color: #5145cd;
+}
+
+.my-details ul {
+    padding-left: 22px;
+    color: #59627b;
+    line-height: 2;
+}
+
+.my-details li::marker {
+    color: #7651df;
+}
+
+.back-home {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 13px 25px;
+    border-radius: 25px;
+    background: linear-gradient(100deg, #5145cd, #9149d8);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back-home:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(81, 69, 205, 0.25);
+}
+
+
+/* =========================================
+   6. MATHEMATICS PAGE
+   ========================================= */
+
+.subject-page {
+    min-height: calc(100vh - 75px);
+    padding: 75px 20px;
+    background: linear-gradient(135deg, #edf1ff, #f2eaff, #ffffff);
+    text-align: center;
+}
+
+.subject-page > h1 {
+    margin: 0 0 15px;
+    color: #303b70;
+    font-size: 40px;
+}
+
+.subject-page > p {
+    color: #737d96;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.subject-page .card {
+    width: 100%;
+    max-width: 560px;
+    margin: 40px auto;
+    padding: 35px 45px;
+    background: white;
+    border: 1px solid #e9e7fa;
+    border-radius: 22px;
+    box-shadow: 0 12px 35px rgba(40, 45, 100, 0.09);
+    text-align: left;
+}
+
+.subject-page .card h2 {
+    margin-top: 0;
+    color: #654bd0;
+    font-size: 24px;
+    text-align: center;
+}
+
+.subject-page .card ul {
+    padding-left: 25px;
+    color: #4d5876;
+    font-size: 16px;
+    line-height: 2.5;
+}
+
+.subject-page .card li::marker {
+    color: #8050dc;
+}
+
+.subject-page > a {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 13px 25px;
+    border-radius: 25px;
+    background: linear-gradient(100deg, #5145cd, #9149d8);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.subject-page > a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(81, 69, 205, 0.22);
+}
+
+
+/* =========================================
+   7. RESPONSIVE DESIGN
+   ========================================= */
+
+/* Laptop and tablet */
+
+@media (max-width: 1000px) {
+
+    .navbar {
+        justify-content: center;
+    }
+
+    .hero {
+        padding: 65px 5%;
+        gap: 25px;
+    }
+
+    .visual-circle {
+        width: 250px;
+        height: 250px;
+    }
+
+    .robot-icon {
+        font-size: 100px;
+    }
+
+    .subject-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .about-page {
+        gap: 25px;
+        padding: 25px;
+    }
+
+    .my-photo {
+        flex-basis: 210px;
+    }
+
+    .my-photo img {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+
+/* Tablet and mobile */
+
+@media (max-width: 750px) {
+
+    .nav-links {
+        gap: 16px;
+    }
+
+    .hero {
+        flex-direction: column;
+        padding: 60px 22px;
+        text-align: center;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .hero-content > p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons,
+    .hero-trust {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        width: 100%;
+        min-height: 320px;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .features-section,
+    .subjects-section {
+        padding: 65px 22px;
+    }
+
+    .about-page {
+        flex-direction: column;
+        margin: 25px auto;
+        padding: 25px 18px;
+        width: calc(100% - 30px);
+    }
+
+    .my-photo {
+        flex-basis: auto;
+    }
+
+    .my-details {
+        width: 100%;
+        padding: 25px;
+    }
+
+    .login-container,
+    .signup-container {
+        flex-direction: column;
+        padding: 30px 18px;
+        gap: 22px;
+    }
+
+    .login-container::before,
+    .signup-container::before {
+        flex: none;
+        width: 100%;
+        max-width: 450px;
+        min-height: 180px;
+        padding: 25px;
+        font-size: 17px;
+        line-height: 1.6;
+    }
+
+    .login-card,
+    .signup-card {
+        max-width: 450px;
+    }
+}
+
+
+/* Small mobile screens */
+
+@media (max-width: 480px) {
+
+    .navbar {
+        padding: 18px 12px;
+        gap: 18px;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .nav-links {
+        gap: 13px;
+    }
+
+    .nav-links a {
+        font-size: 12px;
+    }
+
+    .nav-buttons {
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero-trust {
+        gap: 12px;
+        font-size: 11px;
+    }
+
+    .hero-visual {
+        min-width: 0;
+        min-height: 270px;
+    }
+
+    .visual-circle {
+        width: 210px;
+        height: 210px;
+    }
+
+    .robot-icon {
+        font-size: 85px;
+    }
+
+    .floating-card {
+        padding: 10px;
+    }
+
+    .floating-card strong {
+        font-size: 11px;
+    }
+
+    .floating-card small {
+        font-size: 10px;
+    }
+
+    .card-one {
+        left: 0;
+    }
+
+    .card-two {
+        right: 0;
+    }
+
+    .subject-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading h2 {
+        font-size: 27px;
+    }
+
+    .cta-section h2 {
+        font-size: 25px;
+    }
+
+    .login-card,
+    .signup-card {
+        padding: 28px 21px;
+    }
+
+    .login-card h2,
+    .signup-card h2 {
+        font-size: 23px;
+    }
+
+    .about-page {
+        padding: 20px 13px;
+    }
+
+    .my-photo img {
+        width: 175px;
+        height: 175px;
+    }
+
+    .my-details {
+        padding: 22px;
+    }
+
+    .my-details h1 {
+        font-size: 27px;
+    }
+
+    .subject-page {
+        padding: 55px 15px;
+    }
+
+    .subject-page > h1 {
+        font-size: 31px;
+    }
+
+    .subject-page .card {
+        padding: 25px 22px;
+    }
+}
+
+/* =====================================
+   LEARN NOVA AI - PREMIUM BRAND DESIGN
+===================================== */
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+    transform: translateY(-2px);
+}
+
+/* Premium L symbol */
+
+.logo-icon {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #6D28D9, #4F46E5);
+    color: #FFFFFF;
+    font-size: 27px;
+    font-weight: 800;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 5px 15px rgba(109, 40, 217, 0.25);
+}
+
+/* Brand name */
+
+.logo-name {
+    color: #172554;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    font-family: Arial, sans-serif;
+}
+
+.logo-name span {
+    color: #7C3AED;
+    font-weight: 800;
+}
+
+/* Navbar */
+
+.navbar {
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(14px);
+    padding: 17px 6%;
+    box-shadow: 0 3px 18px rgba(15, 23, 42, 0.06);
+}
+
+/* Navigation links */
+
+.nav-links a {
+    color: #475569;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.nav-links a:hover {
+    color: #7C3AED;
+}
+
+/* Mobile logo */
+
+@media (max-width: 768px) {
+    .logo-icon {
+        width: 39px;
+        height: 39px;
+        font-size: 23px;
+    }
+
+    .logo-name {
+        font-size: 21px;
+    }
+}
