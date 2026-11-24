@@ -1367,3 +1367,423 @@ body > header:not(.navbar) nav a:hover {
         font-size: 21px;
     }
 }
+
+/* =================================
+   MERIT NOVA AI - NAVIGATION FIX
+================================= */
+
+/* Desktop navigation */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 20px;
+    position: relative;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 30px;
+    flex: 1;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 25px;
+}
+
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 12px;
+}
+
+.menu-toggle {
+    display: none;
+    border: none;
+    background: #f0edff;
+    color: #6545c7;
+    font-size: 27px;
+    padding: 7px 12px;
+    border-radius: 9px;
+    cursor: pointer;
+}
+
+/* Mobile navigation */
+@media (max-width: 850px) {
+
+    .navbar {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-menu {
+        display: none;
+        width: 100%;
+        flex: 0 0 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+        padding: 20px 0;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .nav-buttons {
+        justify-content: center;
+    }
+}
+
+/* =====================================
+   STAGE 3 - PREMIUM HERO DESIGN
+   MERIT NOVA AI
+===================================== */
+
+.hero {
+    position: relative;
+    background:
+        radial-gradient(circle at 85% 20%, #e5d5ff 0, transparent 35%),
+        linear-gradient(120deg, #f5f3ff, #ffffff, #f0edff);
+    padding: 90px 8%;
+    min-height: 620px;
+}
+
+.hero-label {
+    background: #eee7ff;
+    color: #7138cf;
+    border: 1px solid #ddd0ff;
+    letter-spacing: 1px;
+    border-radius: 30px;
+    padding: 12px 20px;
+}
+
+.hero h1 {
+    color: #182451;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+}
+
+.hero h1 span {
+    background: linear-gradient(100deg, #6736d1, #a044d5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero-content > p {
+    color: #64708a;
+    line-height: 1.9;
+}
+
+.hero-buttons a {
+    transition: all 0.3s ease;
+}
+
+.primary-btn {
+    border-radius: 12px;
+    background: linear-gradient(110deg, #5835ca, #9347d8);
+    box-shadow: 0 8px 22px rgba(88, 53, 202, 0.22);
+}
+
+.secondary-btn {
+    border-radius: 12px;
+    border: 1px solid #cfc0f5;
+}
+
+.visual-circle {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    background: linear-gradient(135deg, #d8ccff, #bda6f4, #eddbff);
+    border: 8px solid rgba(255,255,255,0.7);
+    box-shadow: 0 25px 65px rgba(100, 60, 190, 0.2);
+}
+
+.robot-icon {
+    color: #5c36bb;
+    font-size: 65px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.floating-card {
+    border: 1px solid #eee8ff;
+    border-radius: 16px;
+    box-shadow: 0 14px 35px rgba(50, 35, 100, 0.12);
+}
+
+/* Mobile hero adjustments */
+@media (max-width: 750px) {
+    .hero {
+        padding: 60px 22px;
+        min-height: auto;
+    }
+
+    .hero h1 {
+        font-size: clamp(36px, 9vw, 48px);
+    }
+
+    .visual-circle {
+        width: 240px;
+        height: 240px;
+    }
+}
+
+/* =====================================
+   STAGE 4 - PREMIUM SUBJECT CARDS
+   MERIT NOVA AI
+===================================== */
+
+.subjects-section {
+    padding: 95px 8%;
+    background: linear-gradient(180deg, #f8f6ff, #f0edff);
+}
+
+.subject-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.subject-card {
+    position: relative;
+    min-height: 245px;
+    padding: 30px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #e8e0ff;
+    border-radius: 22px;
+    box-shadow: 0 8px 25px rgba(75, 50, 145, 0.06);
+    overflow: hidden;
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease,
+                border-color 0.3s ease;
+}
+
+.subject-card::after {
+    content: "Explore →";
+    margin-top: auto;
+    padding-top: 20px;
+    color: #7544d5;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.subject-card > span {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #eee8ff, #e2d7ff);
+    font-size: 32px;
+}
+
+.subject-card h3 {
+    margin: 22px 0 9px;
+    color: #252b59;
+    font-size: 19px;
+    font-weight: 750;
+}
+
+.subject-card p {
+    margin: 0;
+    color: #737b95;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.subject-card:hover {
+    transform: translateY(-9px);
+    border-color: #bca5f5;
+    box-shadow: 0 18px 35px rgba(91, 59, 170, 0.13);
+    background: #ffffff;
+}
+
+.subject-card:hover::after {
+    color: #a044d5;
+}
+
+/* Tablet layout */
+@media (max-width: 1000px) {
+    .subject-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Mobile layout */
+@media (max-width: 520px) {
+    .subjects-section {
+        padding: 65px 20px;
+    }
+
+    .subject-grid {
+        grid-template-columns: 1fr;
+        gap: 17px;
+    }
+
+    .subject-card {
+        min-height: 220px;
+        padding: 25px;
+    }
+}
+
+/* =====================================
+   STAGE 5 - FINAL VISUAL POLISH
+   MERIT NOVA AI
+===================================== */
+
+/* Consistent typography and colors */
+:root {
+    --brand-purple: #7042d2;
+    --brand-violet: #9149d8;
+    --brand-navy: #202d63;
+    --brand-text: #596680;
+    --brand-background: #f8f7ff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 25px;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--brand-navy);
+    background: var(--brand-background);
+    overflow-x: hidden;
+}
+
+/* Consistent section spacing */
+.features-section,
+.subjects-section {
+    padding-top: 85px;
+    padding-bottom: 85px;
+}
+
+/* Better section headings */
+.section-heading h2 {
+    font-weight: 800;
+    letter-spacing: -0.7px;
+}
+
+.section-heading p {
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--brand-text);
+}
+
+/* Better feature cards */
+.feature-card {
+    border-radius: 20px;
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 35px rgba(75, 50, 145, 0.12);
+}
+
+/* Consistent buttons */
+.primary-btn,
+.secondary-btn,
+.login-btn,
+.signup-btn {
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.primary-btn:focus-visible,
+.secondary-btn:focus-visible,
+.login-btn:focus-visible,
+.signup-btn:focus-visible,
+.nav-links a:focus-visible,
+.subject-card:focus-visible {
+    outline: 3px solid #a78bfa;
+    outline-offset: 4px;
+}
+
+/* Better footer */
+.footer {
+    padding: 45px 20px;
+}
+
+.footer .logo {
+    margin-bottom: 12px;
+}
+
+/* Responsive spacing */
+@media (max-width: 750px) {
+    .features-section,
+    .subjects-section {
+        padding: 60px 20px;
+    }
+
+    .section-heading {
+        margin-bottom: 32px;
+    }
+
+    .hero-content > p {
+        font-size: 15px;
+    }
+
+    .cta-section {
+        padding: 55px 20px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 380px) {
+    .logo-name {
+        font-size: 18px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-buttons a {
+        text-align: center;
+    }
+
+    .nav-buttons a {
+        padding: 10px 15px;
+    }
+}
