@@ -1,548 +1,1219 @@
 
-/* ==========================================
-   MERIT NOVA AI - CHATBOT FUNCTIONALITY
-   ========================================== */
+/* =========================================
+   MERIT NOVA AI
+   Interactive Chatbot Workspace
+========================================= */
+
+
+/* ---------- ELEMENT SELECTORS ---------- */
 
 const $ = (id) => document.getElementById(id);
 
-const chatBox = $("chatBox");
-const chatForm = $("chatForm");
-const userInput = $("userInput");
-const welcomeSection = $("welcomeSection");
-
 const sidebar = $("sidebar");
+const sidebarClose = $("sidebarClose");
+const menuToggle = $("menuToggle");
+
+const newChatButton = $("newChatButton");
+const searchChatsButton = $("searchChatsButton");
+const sidebarSearch = $("sidebarSearch");
+const chatSearchInput = $("chatSearchInput");
+
+const scheduledButton = $("scheduledButton");
+const libraryButton = $("libraryButton");
+const meetingSummaryButton = $("meetingSummaryButton");
+const settingsButton = $("settingsButton");
+
 const recentChats = $("recentChats");
 const recentCount = $("recentCount");
 
+const themeButton = $("themeButton");
+
+const welcomeSection = $("welcomeSection");
+const conversationArea = $("conversationArea");
+const chatBox = $("chatBox");
+const greetingMessage = $("greetingMessage");
+
+const chatForm = $("chatForm");
+const userInput = $("userInput");
+const sendButton = $("sendButton");
+
+const attachButton = $("attachButton");
+const attachmentMenu = $("attachmentMenu");
+const uploadImageButton = $("uploadImageButton");
+const uploadFileButton = $("uploadFileButton");
+
+const imageButton = $("imageButton");
+const fileButton = $("fileButton");
 const imageInput = $("imageInput");
 const fileInput = $("fileInput");
+
+const micButton = $("micButton");
+
 const selectedFiles = $("selectedFiles");
-
-const attachmentMenu = $("attachmentMenu");
 const toastMessage = $("toastMessage");
+// Hide greeting when the user clicks the message input
 
-let conversations = [];
+userInput.addEventListener("focus", function () {
 
-try {
-    conversations = JSON.parse(
-        localStorage.getItem("meritNovaChats") || "[]"
-    );
+    const greeting = document.getElementById("greetingMessage");
 
-    if (!Array.isArray(conversations)) {
-        conversations = [];
+    if (greeting) {
+        greeting.remove();
     }
-} catch {
-    conversations = [];
-}
 
-let currentChatId = null;
-let currentMessages = [];
-let selectedAttachments = [];
-let recognition = null;
+});
+
+/* =========================================
+   NOTIFICATION MESSAGE
+========================================= */
+
 let toastTimer;
-let recording = false;
-
-/* ------------------------------------------
-   NOTIFICATION
------------------------------------------- */
 
 function showToast(message) {
+
+    if (!toastMessage) return;
+
     toastMessage.textContent = message;
-    toastMessage.classList.add("visible");
+    toastMessage.classList.add("show");
 
     clearTimeout(toastTimer);
 
     toastTimer = setTimeout(() => {
-        toastMessage.classList.remove("visible");
-    }, 2800);
+        toastMessage.classList.remove("show");
+    }, 2500);
 }
 
-/* ------------------------------------------
-   SAVE CONVERSATIONS
------------------------------------------- */
 
-function saveConversations() {
+/* =========================================
+   CHAT STORAGE
+========================================= */
+
+const STORAGE_KEY = "meritNovaChats";
+
+let chats = [];
+
+let currentChatId = null;
+
+function loadChats() {
+
     try {
-        localStorage.setItem(
-            "meritNovaChats",
-            JSON.stringify(conversations)
-        );
-    } catch {
-        showToast("Storage is full. Some chats could not be saved.");
+
+        const savedChats = localStorage.getItem(STORAGE_KEY);
+
+        chats = savedChats ? JSON.parse(savedChats) : [];
+
+        if (!Array.isArray(chats)) {
+            chats = [];
+        }
+
+    } catch (error) {
+
+        chats = [];
+
     }
+
 }
 
-/* ------------------------------------------
-   ADD CHAT MESSAGE
------------------------------------------- */
+function saveChats() {
 
-function addMessage(text, sender) {
+    try {
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(chats)
+        );
+
+    } catch (error) {
+
+        showToast("Unable to save chats in this browser.");
+
+    }
+
+}
+
+function createChat() {
+
+    const chat = {
+
+        id: Date.now().toString(),
+
+        title: "New Conversation",
+
+        messages: [],
+
+        updatedAt: Date.now()
+
+    };
+
+    chats.unshift(chat);
+
+    currentChatId = chat.id;
+
+    saveChats();
+
+    renderRecentChats();
+
+    return chat;
+
+}
+
+function getCurrentChat() {
+
+    return chats.find(
+        chat => chat.id === currentChatId
+    );
+
+}
+
+
+/* =========================================
+   RECENT CHAT LIST
+========================================= */
+
+
+function renderRecentChats(filter = "") {
+
+    if (!recentChats || !recentCount) return;
+
+    recentChats.innerHTML = "";
+
+    const searchText = filter.toLowerCase().trim();
+
+    const filteredChats = chats.filter(chat =>
+        chat.title.toLowerCase().includes(searchText)
+    );
+
+    recentCount.textContent = filteredChats.length;
+
+    if (filteredChats.length === 0) {
+
+        const emptyMessage = document.createElement("p");
+
+        emptyMessage.className = "empty-history";
+
+        emptyMessage.textContent = searchText
+            ? "No matching conversations found."
+            : "Your conversations will appear here.";
+
+        recentChats.appendChild(emptyMessage);
+
+        return;
+    }
+
+    filteredChats.forEach(chat => {
+
+        const chatRow = document.createElement("div");
+
+        chatRow.className = "recent-chat-row";
+
+        const chatButton = document.createElement("button");
+
+        chatButton.type = "button";
+
+        chatButton.className = "recent-chat-item";
+
+        chatButton.textContent = chat.title;
+
+        chatButton.title = chat.title;
+
+        chatButton.addEventListener("click", () => {
+            openChat(chat.id);
+        });
+
+        const deleteButton = document.createElement("button");
+
+        deleteButton.type = "button";
+
+        deleteButton.className = "delete-chat-button";
+
+        deleteButton.textContent = "×";
+
+        deleteButton.title = "Delete this chat";
+
+        deleteButton.setAttribute(
+            "aria-label",
+            "Delete " + chat.title
+        );
+
+        deleteButton.addEventListener("click", () => {
+            deleteChat(chat.id);
+        });
+
+        chatRow.appendChild(chatButton);
+
+        chatRow.appendChild(deleteButton);
+
+        recentChats.appendChild(chatRow);
+
+    });
+
+}
+
+
+/* DELETE INDIVIDUAL CHAT */
+
+function deleteChat(chatId) {
+
+    const chat = chats.find(item => item.id === chatId);
+
+    if (!chat) return;
+
+    const confirmed = confirm(
+        "Are you sure you want to delete this conversation?"
+    );
+
+    if (!confirmed) return;
+
+    chats = chats.filter(item => item.id !== chatId);
+
+    if (currentChatId === chatId) {
+
+        currentChatId = null;
+
+        chatBox.innerHTML = "";
+
+        showWelcome();
+
+    }
+
+    saveChats();
+
+    renderRecentChats(chatSearchInput?.value || "");
+
+    showToast("Conversation deleted.");
+
+}
+
+
+function openChat(chatId) {
+
+    const chat = chats.find(item => item.id === chatId);
+
+    if (!chat) return;
+
+    currentChatId = chatId;
+
+    chatBox.innerHTML = "";
+
+    if (chat.messages.length === 0) {
+
+        const message = document.createElement("div");
+
+        message.className = "message bot-message";
+
+        message.textContent =
+            "Hello! 👋 What would you like to learn today?";
+
+        chatBox.appendChild(message);
+
+    } else {
+
+        chat.messages.forEach(message => {
+
+            addMessageToScreen(
+                message.text,
+                message.sender,
+                false
+            );
+
+        });
+
+    }
+
+    showConversation();
+
+    renderRecentChats();
+
+    closeMobileSidebar();
+
+}
+
+
+/* =========================================
+   SHOW AND HIDE WELCOME SCREEN
+========================================= */
+
+function showConversation() {
+
+    if (welcomeSection) {
+
+        welcomeSection.classList.add("hidden");
+
+    }
+
+    if (conversationArea) {
+
+        conversationArea.scrollTop =
+            conversationArea.scrollHeight;
+
+    }
+
+}
+
+function showWelcome() {
+
+    if (welcomeSection) {
+
+        welcomeSection.classList.remove("hidden");
+
+    }
+
+}
+
+
+/* =========================================
+   NEW CHAT
+========================================= */
+
+function startNewChat() {
+
+    currentChatId = null;
+
+    chatBox.innerHTML = "";
+
+    if (greetingMessage) {
+
+        const greeting = document.createElement("div");
+
+        greeting.className = "message bot-message";
+
+        greeting.textContent =
+            "Hello! 👋 I'm your AI study assistant. What would you like to learn today?";
+
+        greeting.id = "greetingMessage";
+
+        chatBox.appendChild(greeting);
+
+    }
+
+    userInput.value = "";
+
+    if (selectedFiles) {
+
+        selectedFiles.innerHTML = "";
+
+    }
+
+    if (imageInput) imageInput.value = "";
+
+    if (fileInput) fileInput.value = "";
+
+    showWelcome();
+
+
+    closeAttachmentMenu();
+
+}
+
+if (newChatButton) {
+
+    newChatButton.addEventListener("click", startNewChat);
+
+}
+
+
+/* =========================================
+   DISPLAY CHAT MESSAGES
+========================================= */
+
+function addMessageToScreen(text, sender, scroll = true) {
+
     const message = document.createElement("div");
 
-    message.className =
-        "message " +
-        (sender === "user" ? "user-message" : "bot-message");
+    message.classList.add("message");
+
+    if (sender === "user") {
+
+        message.classList.add("user-message");
+
+    } else {
+
+        message.classList.add("bot-message");
+
+    }
 
     message.textContent = text;
 
     chatBox.appendChild(message);
 
-    currentMessages.push({
-        text: text,
-        sender: sender
-    });
+    if (scroll && conversationArea) {
 
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
+        conversationArea.scrollTop =
+            conversationArea.scrollHeight;
 
-/* ------------------------------------------
-   SAVE CURRENT CHAT
------------------------------------------- */
-
-function saveCurrentChat() {
-    if (currentMessages.length === 0) return;
-
-    if (!currentChatId) {
-        currentChatId = Date.now().toString();
     }
 
-    const firstQuestion = currentMessages.find(
-        message => message.sender === "user"
-    );
-
-    const title = firstQuestion
-        ? firstQuestion.text.slice(0, 38)
-        : "New conversation";
-
-    const existingIndex = conversations.findIndex(
-        chat => chat.id === currentChatId
-    );
-
-    const conversation = {
-        id: currentChatId,
-        title: title,
-        messages: currentMessages,
-        updatedAt: new Date().toISOString()
-    };
-
-    if (existingIndex >= 0) {
-        conversations[existingIndex] = conversation;
-    } else {
-        conversations.unshift(conversation);
-    }
-
-    conversations.sort(
-        (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
-    );
-
-    conversations = conversations.slice(0, 50);
-
-    saveConversations();
-    renderRecentChats();
 }
 
-/* ------------------------------------------
-   SHOW RECENT CHATS
------------------------------------------- */
 
-function renderRecentChats(searchText = "") {
-    recentChats.innerHTML = "";
-
-    const filtered = conversations.filter(chat =>
-        chat.title.toLowerCase().includes(searchText.toLowerCase())
-    );
-
-    recentCount.textContent = filtered.length;
-
-    if (filtered.length === 0) {
-        const empty = document.createElement("p");
-
-        empty.className = "empty-history";
-        empty.textContent = searchText
-            ? "No matching chats found."
-            : "Your conversations will appear here.";
-
-        recentChats.appendChild(empty);
-        return;
-    }
-
-    filtered.forEach(chat => {
-        const button = document.createElement("button");
-
-        button.className = "recent-chat-item";
-        button.textContent = "◉  " + chat.title;
-        button.title = chat.title;
-
-        button.addEventListener("click", () => {
-            openConversation(chat.id);
-        });
-
-        recentChats.appendChild(button);
-    });
-}
-
-/* ------------------------------------------
-   OPEN PREVIOUS CHAT
------------------------------------------- */
-
-function openConversation(id) {
-    const chat = conversations.find(item => item.id === id);
-
-    if (!chat) return;
-
-    currentChatId = chat.id;
-    currentMessages = [...chat.messages];
-
-    chatBox.innerHTML = "";
-
-    currentMessages.forEach(message => {
-        const element = document.createElement("div");
-
-        element.className =
-            "message " +
-            (message.sender === "user"
-                ? "user-message"
-                : "bot-message");
-
-        element.textContent = message.text;
-
-        chatBox.appendChild(element);
-    });
-
-    welcomeSection.style.display = "none";
-
-    closeSidebar();
-    userInput.focus();
-}
-
-/* ------------------------------------------
-   START NEW CHAT
------------------------------------------- */
-
-function startNewChat() {
-    currentChatId = null;
-    currentMessages = [];
-    selectedAttachments = [];
-
-    chatBox.innerHTML = "";
-    userInput.value = "";
-    selectedFiles.innerHTML = "";
-
-    imageInput.value = "";
-    fileInput.value = "";
-
-    welcomeSection.style.display = "flex";
-
-    attachmentMenu.classList.remove("visible");
-
-    closeSidebar();
-    userInput.focus();
-}
-
-$("newChatButton").addEventListener("click", startNewChat);
-
-/* ------------------------------------------
+/* =========================================
    SEND MESSAGE
------------------------------------------- */
+========================================= */
 
-function sendMessage() {
-    const question = userInput.value.trim();
+function sendMessage(text) {
 
-    if (!question && selectedAttachments.length === 0) {
-        userInput.focus();
+    const messageText = text.trim();
+
+    if (!messageText) {
+
+        showToast("Please enter a message first.");
+
         return;
+
     }
 
-    welcomeSection.style.display = "none";
+    let chat = getCurrentChat();
 
-    if (question) {
-        addMessage(question, "user");
+    if (!chat) {
+
+        chat = createChat();
+
     }
 
-    if (selectedAttachments.length > 0) {
-        const names = selectedAttachments
-            .map(file => file.name)
-            .join(", ");
+    chat.messages.push({
 
-        addMessage("Attachments selected: " + names, "user");
-    }
+        sender: "user",
+
+        text: messageText
+
+    });
+
+    chat.title = messageText.length > 32
+        ? messageText.substring(0, 32) + "..."
+        : messageText;
+
+    chat.updatedAt = Date.now();
+
+    addMessageToScreen(messageText, "user");
 
     userInput.value = "";
-    selectedAttachments = [];
-    selectedFiles.innerHTML = "";
 
-    saveCurrentChat();
+    showConversation();
+
+    saveChats();
+
+    renderRecentChats();
 
     /*
-       TEMPORARY FRONTEND RESPONSE
+       DEMO RESPONSE
 
-       A real AI model will be connected
-       through a secure backend later.
+       This is a temporary frontend response.
+       A real AI API/backend will be connected later.
     */
 
     setTimeout(() => {
-        addMessage(
-            "Thank you for your question! Your message has been added to the conversation. The real Merit Nova AI assistant will be connected in the next development stage.",
-            "bot"
-        );
 
-        saveCurrentChat();
+        const response =
+            "Thanks for your question! Your Merit Nova AI assistant interface is ready. Connect an AI backend to receive intelligent answers to your questions.";
+
+        addMessageToScreen(response, "bot");
+
+        chat.messages.push({
+
+            sender: "bot",
+
+            text: response
+
+        });
+
+        chat.updatedAt = Date.now();
+
+        saveChats();
+
+        renderRecentChats();
+
     }, 700);
 
-    userInput.focus();
 }
 
-chatForm.addEventListener("submit", event => {
-    event.preventDefault();
-    sendMessage();
-});
+if (chatForm) {
 
-/* ------------------------------------------
-   SUBJECT SUGGESTION BUTTONS
------------------------------------------- */
+    chatForm.addEventListener("submit", (event) => {
 
-document.querySelectorAll(".suggestion-card").forEach(button => {
-    button.addEventListener("click", () => {
-        const subject = button.querySelector("strong").textContent;
+        event.preventDefault();
 
-        userInput.value =
-            "Help me learn " + subject +
-            " with simple explanations and examples.";
+        sendMessage(userInput.value);
 
-        sendMessage();
     });
-});
 
-/* ------------------------------------------
-   SIDEBAR MOBILE CONTROLS
------------------------------------------- */
-
-function closeSidebar() {
-    sidebar.classList.remove("open");
 }
 
-$("menuToggle").addEventListener("click", () => {
-    sidebar.classList.toggle("open");
+
+/* =========================================
+   SUBJECT SELECTION
+========================================= */
+
+function selectSubject(subject) {
+
+    userInput.value =
+        "Help me learn " + subject + ". Explain it in simple words.";
+
+    userInput.focus();
+
+    showToast(subject + " selected.");
+
+}
+
+document.querySelectorAll("[data-subject]").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const subject = button.dataset.subject;
+
+        selectSubject(subject);
+
+    });
+
 });
 
-$("sidebarClose").addEventListener("click", closeSidebar);
 
-/* ------------------------------------------
-   SEARCH CHATS
------------------------------------------- */
+/* =========================================
+   SIDEBAR SEARCH
+========================================= */
 
-const sidebarSearch = $("sidebarSearch");
-const chatSearchInput = $("chatSearchInput");
+if (searchChatsButton) {
 
-$("searchChatsButton").addEventListener("click", () => {
-    sidebarSearch.classList.toggle("visible");
+    searchChatsButton.addEventListener("click", () => {
 
-    if (sidebarSearch.classList.contains("visible")) {
-        chatSearchInput.focus();
-    } else {
-        chatSearchInput.value = "";
-        renderRecentChats();
+        if (!sidebarSearch) return;
+
+        sidebarSearch.classList.toggle("active");
+
+        if (sidebarSearch.classList.contains("active")) {
+
+            chatSearchInput.focus();
+
+        } else {
+
+            chatSearchInput.value = "";
+
+            renderRecentChats();
+
+        }
+
+    });
+
+}
+
+if (chatSearchInput) {
+
+    chatSearchInput.addEventListener("input", () => {
+
+        renderRecentChats(chatSearchInput.value);
+
+    });
+
+}
+
+
+/* =========================================
+   MOBILE SIDEBAR
+========================================= */
+
+if (menuToggle) {
+
+    menuToggle.addEventListener("click", () => {
+
+        sidebar.classList.toggle("open");
+
+    });
+
+}
+
+function closeMobileSidebar() {
+
+    if (window.innerWidth <= 650 && sidebar) {
+
+        sidebar.classList.remove("open");
+
     }
-});
 
-chatSearchInput.addEventListener("input", () => {
-    renderRecentChats(chatSearchInput.value);
-});
+}
 
-/* ------------------------------------------
-   ATTACHMENT MENU
------------------------------------------- */
+if (sidebarClose) {
 
-$("attachButton").addEventListener("click", () => {
-    attachmentMenu.classList.toggle("visible");
-});
+    sidebarClose.addEventListener("click", () => {
 
-$("uploadImageButton").addEventListener("click", () => {
-    imageInput.click();
-    attachmentMenu.classList.remove("visible");
-});
+        closeMobileSidebar();
 
-$("uploadFileButton").addEventListener("click", () => {
-    fileInput.click();
-    attachmentMenu.classList.remove("visible");
-});
+    });
 
-$("imageButton").addEventListener("click", () => {
-    imageInput.click();
-});
+}
 
-$("fileButton").addEventListener("click", () => {
-    fileInput.click();
-});
 
-/* ------------------------------------------
-   FILE SELECTION
------------------------------------------- */
+/* =========================================
+   SIDEBAR OTHER OPTIONS
+========================================= */
 
-function handleFileSelection(event) {
-    const files = Array.from(event.target.files);
+if (scheduledButton) {
 
-    files.forEach(file => {
-        const exists = selectedAttachments.some(
-            item => item.name === file.name &&
-                    item.size === file.size
+    scheduledButton.addEventListener("click", () => {
+
+        showToast("Scheduled feature will be available soon.");
+
+    });
+
+}
+
+if (libraryButton) {
+
+    libraryButton.addEventListener("click", () => {
+
+        showToast("Your study library is coming soon.");
+
+    });
+
+}
+
+if (meetingSummaryButton) {
+
+    meetingSummaryButton.addEventListener("click", () => {
+
+        showToast("Meeting Summary feature is coming soon.");
+
+    });
+
+}
+
+if (settingsButton) {
+
+    settingsButton.addEventListener("click", () => {
+
+        showToast("Settings feature is coming soon.");
+
+    });
+
+}
+
+
+/* =========================================
+   DARK AND LIGHT THEME
+========================================= */
+
+const THEME_KEY = "meritNovaTheme";
+
+function updateThemeButton() {
+
+    if (!themeButton) return;
+
+    const darkMode =
+        document.body.classList.contains("dark-theme");
+
+    themeButton.textContent = darkMode ? "☀" : "☾";
+
+    themeButton.title = darkMode
+        ? "Switch to light theme"
+        : "Switch to dark theme";
+
+    themeButton.setAttribute(
+        "aria-label",
+        themeButton.title
+    );
+
+}
+
+function loadTheme() {
+
+    const savedTheme = localStorage.getItem(THEME_KEY);
+
+    if (savedTheme === "dark") {
+
+        document.body.classList.add("dark-theme");
+
+    } else {
+
+        document.body.classList.remove("dark-theme");
+
+    }
+
+    updateThemeButton();
+
+}
+
+if (themeButton) {
+
+    themeButton.addEventListener("click", () => {
+
+        document.body.classList.toggle("dark-theme");
+
+        const darkMode =
+            document.body.classList.contains("dark-theme");
+
+        localStorage.setItem(
+            THEME_KEY,
+            darkMode ? "dark" : "light"
         );
 
-        if (!exists) {
-            selectedAttachments.push(file);
-        }
+        updateThemeButton();
+
     });
 
-    selectedFiles.innerHTML = "";
+}
 
-    selectedAttachments.forEach(file => {
-        const item = document.createElement("span");
 
-        item.className = "selected-file";
-        item.textContent = "📎 " + file.name;
+/* =========================================
+   ATTACHMENT MENU
+========================================= */
 
-        selectedFiles.appendChild(item);
+function closeAttachmentMenu() {
+
+    if (attachmentMenu) {
+
+        attachmentMenu.classList.remove("active");
+
+    }
+
+}
+
+if (attachButton) {
+
+    attachButton.addEventListener("click", () => {
+
+        attachmentMenu.classList.toggle("active");
+
+    });
+
+}
+
+document.addEventListener("click", (event) => {
+
+    if (
+        attachmentMenu &&
+        attachButton &&
+        !attachmentMenu.contains(event.target) &&
+        !attachButton.contains(event.target)
+    ) {
+
+        closeAttachmentMenu();
+
+    }
+
+});
+
+
+/* =========================================
+   IMAGE AND FILE UPLOAD
+========================================= */
+
+function openImagePicker() {
+
+    if (imageInput) {
+
+        imageInput.click();
+
+    }
+
+    closeAttachmentMenu();
+
+}
+
+function openFilePicker() {
+
+    if (fileInput) {
+
+        fileInput.click();
+
+    }
+
+    closeAttachmentMenu();
+
+}
+
+if (imageButton) {
+
+    imageButton.addEventListener("click", openImagePicker);
+
+}
+
+if (uploadImageButton) {
+
+    uploadImageButton.addEventListener("click", openImagePicker);
+
+}
+
+if (fileButton) {
+
+    fileButton.addEventListener("click", openFilePicker);
+
+}
+
+if (uploadFileButton) {
+
+    uploadFileButton.addEventListener("click", openFilePicker);
+
+}
+
+
+/* SHOW SELECTED FILES */
+
+function displaySelectedFiles(files) {
+
+    if (!selectedFiles) return;
+
+    Array.from(files).forEach(file => {
+
+        const fileTag = document.createElement("span");
+
+        fileTag.className = "selected-file";
+
+        fileTag.textContent = "📎 " + file.name;
+
+        selectedFiles.appendChild(fileTag);
+
     });
 
     if (files.length > 0) {
-        showToast("File selected successfully.");
+
+        showToast(files.length + " file(s) selected.");
+
     }
 
-    event.target.value = "";
 }
 
-imageInput.addEventListener("change", handleFileSelection);
-fileInput.addEventListener("change", handleFileSelection);
+if (imageInput) {
 
-/* ------------------------------------------
-   MICROPHONE - SPEECH TO TEXT
------------------------------------------- */
+    imageInput.addEventListener("change", () => {
 
-const micButton = $("micButton");
+        displaySelectedFiles(imageInput.files);
+
+    });
+
+}
+
+if (fileInput) {
+
+    fileInput.addEventListener("change", () => {
+
+        displaySelectedFiles(fileInput.files);
+
+    });
+
+}
+
+
+/* =========================================
+   MICROPHONE / SPEECH RECOGNITION
+   HOLD TO SPEAK
+========================================= */
 
 const SpeechRecognition =
     window.SpeechRecognition ||
     window.webkitSpeechRecognition;
 
-if (SpeechRecognition) {
-    recognition = new SpeechRecognition();
+let recognition = null;
 
-    recognition.lang = "en-IN";
-    recognition.continuous = false;
-    recognition.interimResults = true;
+let isMicHeld = false;
 
-    recognition.onstart = () => {
-        recording = true;
-        micButton.classList.add("recording");
-        micButton.textContent = "●";
+let speechBaseText = "";
 
-        showToast("Listening... Speak now.");
-    };
+let speechSessionText = "";
 
-    recognition.onresult = event => {
-        let transcript = "";
+let recognitionSupported = Boolean(SpeechRecognition);
 
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-            transcript += event.results[i][0].transcript;
-        }
 
-        userInput.value = transcript;
-    };
+/* UPDATE INPUT WITHOUT LOSING OLD WORDS */
 
-    recognition.onerror = event => {
-        showToast("Microphone error: " + event.error);
-    };
+function updateSpeechInput(interimText = "") {
 
-    recognition.onend = () => {
-        recording = false;
-        micButton.classList.remove("recording");
-        micButton.textContent = "🎙";
-    };
+    const combinedText = [
 
-    function startRecording() {
-        if (recording) return;
+        speechBaseText,
+
+        speechSessionText,
+
+        interimText
+
+    ]
+        .map(text => text.trim())
+        .filter(Boolean)
+        .join(" ");
+
+    userInput.value = combinedText;
+
+    userInput.dispatchEvent(
+        new Event("input", { bubbles: true })
+    );
+
+}
+
+
+/* STOP MICROPHONE */
+
+function stopMicrophone() {
+
+    if (!recognitionSupported) return;
+
+    isMicHeld = false;
+
+    if (recognition) {
 
         try {
-            recognition.start();
-        } catch {
-            showToast("Microphone is already starting.");
-        }
-    }
 
-    function stopRecording() {
-        if (recording) {
             recognition.stop();
+
+        } catch (error) {
+
+            console.log("Microphone already stopped.");
+
         }
+
     }
 
-    /* TAP TO START OR STOP */
+}
 
-    micButton.addEventListener("click", () => {
-        if (recording) {
-            stopRecording();
-        } else {
-            startRecording();
-        }
-    });
 
-    /* HOLD TO TALK */
+/* START MICROPHONE */
 
-    micButton.addEventListener("pointerdown", event => {
-        if (event.pointerType === "mouse") return;
-        startRecording();
-    });
+function startMicrophone() {
 
-    micButton.addEventListener("pointerup", event => {
-        if (event.pointerType === "mouse") return;
-        stopRecording();
-    });
+    if (!recognitionSupported) {
 
-    micButton.addEventListener("pointercancel", stopRecording);
-    micButton.addEventListener("lostpointercapture", stopRecording);
-
-} else {
-    micButton.addEventListener("click", () => {
         showToast(
             "Voice input is not supported in this browser. Try Chrome."
         );
-    });
+
+        return;
+
+    }
+
+    if (isMicHeld) return;
+
+    speechBaseText = userInput.value.trim();
+
+    speechSessionText = "";
+
+    isMicHeld = true;
+
+    recognition = new SpeechRecognition();
+
+    recognition.lang = "en-IN";
+
+    recognition.continuous = true;
+
+    recognition.interimResults = true;
+
+    recognition.onstart = () => {
+
+        if (micButton) {
+
+            micButton.classList.add("recording");
+
+        }
+
+        showToast("Listening... Release the button to stop.");
+
+    };
+
+
+    /* RECOGNISE SPEECH */
+
+    recognition.onresult = (event) => {
+
+        let finalText = "";
+
+        let interimText = "";
+
+        for (
+            let i = 0;
+            i < event.results.length;
+            i++
+        ) {
+
+            const transcript =
+                event.results[i][0].transcript;
+
+            if (event.results[i].isFinal) {
+
+                finalText += transcript + " ";
+
+            } else {
+
+                interimText += transcript + " ";
+
+            }
+
+        }
+
+        speechSessionText = finalText.trim();
+
+        updateSpeechInput(interimText);
+
+    };
+
+
+    /* HANDLE ERRORS */
+
+    recognition.onerror = (event) => {
+
+        console.log(
+            "Speech recognition error:",
+            event.error
+        );
+
+        if (event.error === "not-allowed") {
+
+            showToast(
+                "Please allow microphone access in your browser."
+            );
+
+        } else if (event.error === "no-speech") {
+
+            showToast("No speech detected. Try again.");
+
+        }
+
+        stopMicrophone();
+
+    };
+
+
+    /* FINISH SPEECH SESSION */
+
+    recognition.onend = () => {
+
+        updateSpeechInput();
+
+        if (micButton) {
+
+            micButton.classList.remove("recording");
+
+        }
+
+        if (isMicHeld) {
+
+            isMicHeld = false;
+
+        }
+
+        if (userInput.value.trim()) {
+
+            showToast("Speech added to your message.");
+
+        }
+
+    };
+
+
+    try {
+
+        recognition.start();
+
+    } catch (error) {
+
+        isMicHeld = false;
+
+        if (micButton) {
+
+            micButton.classList.remove("recording");
+
+        }
+
+        showToast("Unable to start microphone. Try again.");
+
+    }
+
 }
 
-/* ------------------------------------------
-   DARK AND LIGHT THEME
------------------------------------------- */
 
-$("themeButton").addEventListener("click", function () {
-    document.body.classList.toggle("dark-theme");
+/* HOLD THE BUTTON TO SPEAK */
 
-    this.textContent =
-        document.body.classList.contains("dark-theme")
-            ? "☀"
-            : "☾";
+if (micButton) {
+
+    micButton.addEventListener("pointerdown", (event) => {
+
+        event.preventDefault();
+
+        startMicrophone();
+
+    });
+
+    micButton.addEventListener("pointerup", (event) => {
+
+        event.preventDefault();
+
+        stopMicrophone();
+
+    });
+
+    micButton.addEventListener("pointercancel", () => {
+
+        stopMicrophone();
+
+    });
+
+    micButton.addEventListener("lostpointercapture", () => {
+
+        stopMicrophone();
+
+    });
+
+    /* Keyboard support */
+
+    micButton.addEventListener("keydown", (event) => {
+
+        if (
+            (event.code === "Space" || event.code === "Enter") &&
+            !event.repeat
+        ) {
+
+            event.preventDefault();
+
+            startMicrophone();
+
+        }
+
+    });
+
+    micButton.addEventListener("keyup", (event) => {
+
+        if (
+            event.code === "Space" ||
+            event.code === "Enter"
+        ) {
+
+            event.preventDefault();
+
+            stopMicrophone();
+
+        }
+
+    });
+
+}
+
+
+/* =========================================
+   CLOSE MOBILE SIDEBAR AFTER RESIZE
+========================================= */
+
+window.addEventListener("resize", () => {
+
+    if (window.innerWidth > 650 && sidebar) {
+
+        sidebar.classList.remove("open");
+
+    }
+
 });
 
-/* ------------------------------------------
-   OTHER SIDEBAR OPTIONS
------------------------------------------- */
 
-$("scheduledButton").addEventListener("click", () => {
-    showToast("Scheduled tasks will be added in a future update.");
-});
+/* =========================================
+   INITIALIZE APPLICATION
+========================================= */
 
-$("libraryButton").addEventListener("click", () => {
-    showToast("Your learning library is coming soon.");
-});
+function initializeApp() {
 
-$("meetingSummaryButton").addEventListener("click", () => {
-    showToast("Meeting Summary will be developed next.");
-});
+    loadChats();
 
-$("settingsButton").addEventListener("click", () => {
-    showToast("Workspace settings are coming soon.");
-});
+    loadTheme();
 
-/* ------------------------------------------
-   INITIALIZE WORKSPACE
------------------------------------------- */
+    renderRecentChats();
 
-renderRecentChats();
+    showWelcome();
+
+
+    console.log("Merit Nova AI initialized successfully.");
+
+}
+
+initializeApp();

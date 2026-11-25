@@ -9,7 +9,9 @@
     <title>Merit Nova AI | Intelligent Learning Workspace</title>
 
     <meta name="description"
-        content="Merit Nova AI - Your intelligent learning and academic assistant.">
+        content="Merit Nova AI - Your personal AI-powered student learning assistant.">
+
+    <meta name="theme-color" content="#20213d">
 
     <link rel="stylesheet" href="chatbot.css">
 </head>
@@ -18,13 +20,13 @@
 
     <div class="app-layout">
 
-        <!-- =================================
+        <!-- ==================================
              LEFT SIDEBAR
-        ================================== -->
+        =================================== -->
 
         <aside class="sidebar" id="sidebar">
 
-            <!-- BRAND LOGO -->
+            <!-- BRAND -->
             <div class="sidebar-brand">
 
                 <div class="brand-symbol">
@@ -33,9 +35,11 @@
 
                 <div class="brand-name">
                     Merit Nova <strong>AI</strong>
+                    <small>LEARN SMARTER. THINK BIGGER.</small>
                 </div>
 
                 <button
+                    type="button"
                     class="sidebar-close"
                     id="sidebarClose"
                     aria-label="Close sidebar">
@@ -46,68 +50,73 @@
 
             <!-- NEW CHAT -->
             <button
+                type="button"
                 class="new-chat-button"
                 id="newChatButton">
 
                 <span>＋</span>
-                New Chat
+                <span>New Chat</span>
 
             </button>
 
-            <!-- SIDEBAR MENU -->
-            <nav class="sidebar-menu" aria-label="Main menu">
+            <!-- SIDEBAR NAVIGATION -->
+            <nav class="sidebar-menu" aria-label="Workspace navigation">
 
                 <button
+                    type="button"
                     class="sidebar-link"
                     id="searchChatsButton">
 
                     <span class="menu-icon">⌕</span>
-                    Search Chats
+                    <span>Search Chats</span>
 
                 </button>
 
                 <button
+                    type="button"
                     class="sidebar-link"
                     id="scheduledButton">
 
                     <span class="menu-icon">▦</span>
-                    Scheduled
+                    <span>Scheduled</span>
 
                 </button>
 
                 <button
+                    type="button"
                     class="sidebar-link"
                     id="libraryButton">
 
                     <span class="menu-icon">▤</span>
-                    Library
+                    <span>Library</span>
 
                 </button>
 
                 <button
+                    type="button"
                     class="sidebar-link"
                     id="meetingSummaryButton">
 
                     <span class="menu-icon">▧</span>
-                    Meeting Summary
+                    <span>Meeting Summary</span>
 
                 </button>
 
             </nav>
 
-            <!-- SEARCH INPUT -->
+            <!-- CHAT SEARCH -->
             <div class="sidebar-search" id="sidebarSearch">
 
                 <input
                     type="search"
                     id="chatSearchInput"
-                    placeholder="Search your chats..."
-                    aria-label="Search conversations">
+                    placeholder="Search your conversations..."
+                    aria-label="Search previous chats">
 
             </div>
 
-            <!-- RECENT CHATS -->
-            <div class="recent-section">
+            <!-- RECENT CONVERSATIONS -->
+            <section class="recent-section">
 
                 <div class="recent-heading">
 
@@ -131,39 +140,58 @@
 
                 </div>
 
-            </div>
+            </section>
 
+            <!-- COLLAPSIBLE SUBJECTS -->
+            <details class="subject-navigation">
 
-<!-- COLLAPSIBLE SUBJECT MENU -->
-<details class="subject-navigation">
+                <summary>
 
-    <summary>
-        <span>YOUR SUBJECTS</span>
-        <span class="subject-arrow">⌄</span>
-    </summary>
+                    <span class="subject-heading">
+                        YOUR SUBJECTS
+                    </span>
 
-    <div class="subject-list">
+                    <span class="subject-arrow">⌄</span>
 
-        <button class="subject-link mathematics">
-            <span>∑</span> Mathematics
-        </button>
+                </summary>
 
-        <button class="subject-link physics">
-            <span>⚛</span> Physics
-        </button>
+                <div class="subject-list">
 
-        <button class="subject-link chemistry">
-            <span>⚗</span> Chemistry
-        </button>
+                    <button
+                        type="button"
+                        class="subject-link mathematics"
+                        data-subject="Mathematics">
+                        <span>∑</span>
+                        Mathematics
+                    </button>
 
-        <button class="subject-link computer-science">
-            <span>💻</span> Computer Science
-        </button>
+                    <button
+                        type="button"
+                        class="subject-link physics"
+                        data-subject="Physics">
+                        <span>⚛</span>
+                        Physics
+                    </button>
 
-    </div>
+                    <button
+                        type="button"
+                        class="subject-link chemistry"
+                        data-subject="Chemistry">
+                        <span>⚗</span>
+                        Chemistry
+                    </button>
 
-</details>
+                    <button
+                        type="button"
+                        class="subject-link computer-science"
+                        data-subject="Computer Science">
+                        <span>⌘</span>
+                        Computer Science
+                    </button>
 
+                </div>
+
+            </details>
 
             <!-- USER PROFILE -->
             <div class="sidebar-profile">
@@ -173,16 +201,18 @@
                 <div class="profile-details">
 
                     <strong>Merit Nova User</strong>
-
                     <span>Student Workspace</span>
 
                 </div>
 
                 <button
+                    type="button"
                     class="settings-button"
                     id="settingsButton"
                     aria-label="Settings">
+
                     ⚙
+
                 </button>
 
             </div>
@@ -190,20 +220,23 @@
         </aside>
 
 
-        <!-- =================================
+        <!-- ==================================
              MAIN WORKSPACE
-        ================================== -->
+        =================================== -->
 
         <main class="main-workspace">
 
-            <!-- TOP NAVIGATION BAR -->
+            <!-- TOP BAR -->
             <header class="topbar">
 
                 <button
+                    type="button"
                     class="menu-toggle"
                     id="menuToggle"
                     aria-label="Open sidebar">
+
                     ☰
+
                 </button>
 
                 <div class="topbar-title">
@@ -218,11 +251,24 @@
 
                 <div class="topbar-actions">
 
+                    <a
+                        href="#userInput"
+                        class="chat-search-link">
+
+                        <span>⌕</span>
+                        <span>Search AI for Study</span>
+
+                    </a>
+
                     <button
+                        type="button"
                         class="topbar-button"
                         id="themeButton"
-                        aria-label="Toggle theme">
+                        aria-label="Switch to dark theme"
+                        title="Change appearance">
+
                         ☾
+
                     </button>
 
                 </div>
@@ -230,15 +276,14 @@
             </header>
 
 
-            <!-- =================================
-                 WELCOME SECTION
-            ================================== -->
+            <!-- ==================================
+                 WELCOME SCREEN
+            =================================== -->
 
             <section
                 class="welcome-section"
                 id="welcomeSection">
 
-                <!-- LOGO SYMBOL -->
                 <div class="welcome-symbol">
 
                     <div class="welcome-logo">
@@ -258,89 +303,117 @@
 
                 <p class="subtitle">
                     Your intelligent learning companion.
-                    Ask questions, explore concepts.
-                    Let's get started!
+                    Ask questions, explore concepts and
+                    make learning easier every day.
                 </p>
-
 
                 <!-- SUBJECT SUGGESTIONS -->
                 <div class="suggestions">
 
-                    <button class="suggestion-card">
+                    <button
+                        type="button"
+                        class="suggestion-card"
+                        data-subject="Mathematics">
 
                         <span class="suggestion-icon math-icon">
                             ∑
                         </span>
 
-                        <span>
+                        <span class="suggestion-content">
+
                             <strong>Mathematics</strong>
 
                             <small>
                                 Understand and solve problems
                             </small>
+
                         </span>
+
+                        <span class="card-arrow">↗</span>
 
                     </button>
 
-
-                    <button class="suggestion-card">
+                    <button
+                        type="button"
+                        class="suggestion-card"
+                        data-subject="Physics">
 
                         <span class="suggestion-icon physics-icon">
                             ⚛
                         </span>
 
-                        <span>
+                        <span class="suggestion-content">
+
                             <strong>Physics</strong>
 
                             <small>
                                 Explore scientific concepts
                             </small>
+
                         </span>
+
+                        <span class="card-arrow">↗</span>
 
                     </button>
 
-
-                    <button class="suggestion-card">
+                    <button
+                        type="button"
+                        class="suggestion-card"
+                        data-subject="Chemistry">
 
                         <span class="suggestion-icon chemistry-icon">
                             ⚗
                         </span>
 
-                        <span>
+                        <span class="suggestion-content">
+
                             <strong>Chemistry</strong>
 
                             <small>
                                 Learn reactions and principles
                             </small>
+
                         </span>
+
+                        <span class="card-arrow">↗</span>
 
                     </button>
 
-
-                    <button class="suggestion-card">
+                    <button
+                        type="button"
+                        class="suggestion-card"
+                        data-subject="Computer Science">
 
                         <span class="suggestion-icon computer-icon">
                             ⌘
                         </span>
 
-                        <span>
+                        <span class="suggestion-content">
+
                             <strong>Computer Science</strong>
 
                             <small>
                                 Explore coding and technology
                             </small>
+
                         </span>
+
+                        <span class="card-arrow">↗</span>
 
                     </button>
 
                 </div>
 
+                <p class="welcome-hint">
+                    Choose a subject or start typing below.
+                </p>
+
             </section>
 
 
-            <!-- =================================
-                 CHAT CONVERSATION AREA
-            ================================== -->
+            <!-- ==================================
+                 CHAT CONVERSATION
+            =================================== -->
 
             <section
                 class="conversation-area"
@@ -350,10 +423,16 @@
                 <div
                     class="chat-box"
                     id="chatBox"
-                    aria-live="polite">
+                    aria-live="polite"
+                    aria-relevant="additions text">
 
-                    <div class="message bot-message">
-Hello! I'm your AI study assistant. What would you like to learn today?
+                    <!-- INITIAL GREETING -->
+                    <div
+                        class="message bot-message"
+                        id="greetingMessage">
+
+                        Hello! 👋 I'm your AI study assistant.
+                        What would you like to learn today?
 
                     </div>
 
@@ -362,12 +441,11 @@ Hello! I'm your AI study assistant. What would you like to learn today?
             </section>
 
 
-            <!-- =================================
+            <!-- ==================================
                  MESSAGE COMPOSER
-            ================================== -->
+            =================================== -->
 
             <section class="composer-section">
-
 
                 <!-- ATTACHMENT MENU -->
                 <div
@@ -388,14 +466,19 @@ Hello! I'm your AI study assistant. What would you like to learn today?
                         id="uploadFileButton">
 
                         <span>📎</span>
-                        Upload file
+                        Upload document
 
                     </button>
 
                 </div>
 
+                <!-- SELECTED FILES -->
+                <div
+                    class="selected-files"
+                    id="selectedFiles">
+                </div>
 
-                <!-- MESSAGE INPUT FORM -->
+                <!-- INPUT FORM -->
                 <form
                     class="input-area"
                     id="chatForm">
@@ -405,14 +488,14 @@ Hello! I'm your AI study assistant. What would you like to learn today?
                         type="button"
                         class="attach-button"
                         id="attachButton"
-                        aria-label="Add attachment">
+                        aria-label="Add attachment"
+                        title="Add attachment">
 
                         ＋
 
                     </button>
 
-
-                    <!-- TEXT INPUT -->
+                    <!-- USER MESSAGE -->
                     <input
                         type="text"
                         id="userInput"
@@ -420,59 +503,54 @@ Hello! I'm your AI study assistant. What would you like to learn today?
                         autocomplete="off"
                         aria-label="Write your message">
 
-
-                    <!-- INPUT ACTIONS -->
+                    <!-- COMPOSER ACTIONS -->
                     <div class="composer-actions">
 
-                        <!-- IMAGE UPLOAD -->
                         <button
                             type="button"
                             class="tool-button"
                             id="imageButton"
-                            aria-label="Upload photo">
+                            aria-label="Upload image"
+                            title="Upload image">
 
                             ▧
 
                         </button>
 
-
-                        <!-- FILE UPLOAD -->
                         <button
                             type="button"
                             class="tool-button"
                             id="fileButton"
-                            aria-label="Upload file">
+                            aria-label="Upload file"
+                            title="Upload document">
 
                             📎
 
                         </button>
 
-
-                        <!-- MICROPHONE -->
                         <button
                             type="button"
                             class="tool-button microphone-button"
                             id="micButton"
-                            aria-label="Start voice input">
+                            aria-label="Start voice input"
+                            title="Start or stop voice input">
 
                             🎙
 
                         </button>
 
-
-                        <!-- SEND BUTTON -->
                         <button
                             type="submit"
                             class="send-button"
                             id="sendButton"
-                            aria-label="Send message">
+                            aria-label="Send message"
+                            title="Send message">
 
                             ↑
 
                         </button>
 
                     </div>
-
 
                     <!-- HIDDEN FILE INPUTS -->
                     <input
@@ -489,18 +567,10 @@ Hello! I'm your AI study assistant. What would you like to learn today?
 
                 </form>
 
-
-                <!-- SELECTED ATTACHMENTS -->
-                <div
-                    class="selected-files"
-                    id="selectedFiles">
-                </div>
-
-
-                <!-- FOOTER NOTE -->
+                <!-- FOOTER -->
                 <p class="footer-note">
-                    AI can make mistakes.
-                    Please double-check responses.
+                    Merit Nova AI can make mistakes.
+                    Please double-check important information.
                 </p>
 
             </section>
@@ -510,7 +580,10 @@ Hello! I'm your AI study assistant. What would you like to learn today?
     </div>
 
 
-    <!-- NOTIFICATION MESSAGE -->
+    <!-- ==================================
+         NOTIFICATION
+    =================================== -->
+
     <div
         class="toast-message"
         id="toastMessage"
@@ -523,4 +596,5 @@ Hello! I'm your AI study assistant. What would you like to learn today?
     <script src="chatbot.js"></script>
 
 </body>
+
 </html>
