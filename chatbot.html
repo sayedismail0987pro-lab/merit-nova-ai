@@ -1,0 +1,526 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Merit Nova AI | Intelligent Learning Workspace</title>
+
+    <meta name="description"
+        content="Merit Nova AI - Your intelligent learning and academic assistant.">
+
+    <link rel="stylesheet" href="chatbot.css">
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- =================================
+             LEFT SIDEBAR
+        ================================== -->
+
+        <aside class="sidebar" id="sidebar">
+
+            <!-- BRAND LOGO -->
+            <div class="sidebar-brand">
+
+                <div class="brand-symbol">
+                    M<span>✦</span>
+                </div>
+
+                <div class="brand-name">
+                    Merit Nova <strong>AI</strong>
+                </div>
+
+                <button
+                    class="sidebar-close"
+                    id="sidebarClose"
+                    aria-label="Close sidebar">
+                    ×
+                </button>
+
+            </div>
+
+            <!-- NEW CHAT -->
+            <button
+                class="new-chat-button"
+                id="newChatButton">
+
+                <span>＋</span>
+                New Chat
+
+            </button>
+
+            <!-- SIDEBAR MENU -->
+            <nav class="sidebar-menu" aria-label="Main menu">
+
+                <button
+                    class="sidebar-link"
+                    id="searchChatsButton">
+
+                    <span class="menu-icon">⌕</span>
+                    Search Chats
+
+                </button>
+
+                <button
+                    class="sidebar-link"
+                    id="scheduledButton">
+
+                    <span class="menu-icon">▦</span>
+                    Scheduled
+
+                </button>
+
+                <button
+                    class="sidebar-link"
+                    id="libraryButton">
+
+                    <span class="menu-icon">▤</span>
+                    Library
+
+                </button>
+
+                <button
+                    class="sidebar-link"
+                    id="meetingSummaryButton">
+
+                    <span class="menu-icon">▧</span>
+                    Meeting Summary
+
+                </button>
+
+            </nav>
+
+            <!-- SEARCH INPUT -->
+            <div class="sidebar-search" id="sidebarSearch">
+
+                <input
+                    type="search"
+                    id="chatSearchInput"
+                    placeholder="Search your chats..."
+                    aria-label="Search conversations">
+
+            </div>
+
+            <!-- RECENT CHATS -->
+            <div class="recent-section">
+
+                <div class="recent-heading">
+
+                    <span>Recent Chats</span>
+
+                    <span
+                        class="recent-count"
+                        id="recentCount">
+                        0
+                    </span>
+
+                </div>
+
+                <div
+                    class="recent-list"
+                    id="recentChats">
+
+                    <p class="empty-history">
+                        Your conversations will appear here.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+<!-- COLLAPSIBLE SUBJECT MENU -->
+<details class="subject-navigation">
+
+    <summary>
+        <span>YOUR SUBJECTS</span>
+        <span class="subject-arrow">⌄</span>
+    </summary>
+
+    <div class="subject-list">
+
+        <button class="subject-link mathematics">
+            <span>∑</span> Mathematics
+        </button>
+
+        <button class="subject-link physics">
+            <span>⚛</span> Physics
+        </button>
+
+        <button class="subject-link chemistry">
+            <span>⚗</span> Chemistry
+        </button>
+
+        <button class="subject-link computer-science">
+            <span>💻</span> Computer Science
+        </button>
+
+    </div>
+
+</details>
+
+
+            <!-- USER PROFILE -->
+            <div class="sidebar-profile">
+
+                <div class="profile-avatar">M</div>
+
+                <div class="profile-details">
+
+                    <strong>Merit Nova User</strong>
+
+                    <span>Student Workspace</span>
+
+                </div>
+
+                <button
+                    class="settings-button"
+                    id="settingsButton"
+                    aria-label="Settings">
+                    ⚙
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =================================
+             MAIN WORKSPACE
+        ================================== -->
+
+        <main class="main-workspace">
+
+            <!-- TOP NAVIGATION BAR -->
+            <header class="topbar">
+
+                <button
+                    class="menu-toggle"
+                    id="menuToggle"
+                    aria-label="Open sidebar">
+                    ☰
+                </button>
+
+                <div class="topbar-title">
+
+                    <span>Merit Nova AI</span>
+
+                    <small>
+                        Intelligent Learning Workspace
+                    </small>
+
+                </div>
+
+                <div class="topbar-actions">
+
+                    <button
+                        class="topbar-button"
+                        id="themeButton"
+                        aria-label="Toggle theme">
+                        ☾
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- =================================
+                 WELCOME SECTION
+            ================================== -->
+
+            <section
+                class="welcome-section"
+                id="welcomeSection">
+
+                <!-- LOGO SYMBOL -->
+                <div class="welcome-symbol">
+
+                    <div class="welcome-logo">
+                        M<span>✦</span>
+                    </div>
+
+                </div>
+
+                <span class="welcome-label">
+                    YOUR PERSONAL AI LEARNING SPACE
+                </span>
+
+                <h1>
+                    Welcome to
+                    <span>Merit Nova AI</span>
+                </h1>
+
+                <p class="subtitle">
+                    Your intelligent learning companion.
+                    Ask questions, explore concepts.
+                    Let's get started!
+                </p>
+
+
+                <!-- SUBJECT SUGGESTIONS -->
+                <div class="suggestions">
+
+                    <button class="suggestion-card">
+
+                        <span class="suggestion-icon math-icon">
+                            ∑
+                        </span>
+
+                        <span>
+                            <strong>Mathematics</strong>
+
+                            <small>
+                                Understand and solve problems
+                            </small>
+                        </span>
+
+                    </button>
+
+
+                    <button class="suggestion-card">
+
+                        <span class="suggestion-icon physics-icon">
+                            ⚛
+                        </span>
+
+                        <span>
+                            <strong>Physics</strong>
+
+                            <small>
+                                Explore scientific concepts
+                            </small>
+                        </span>
+
+                    </button>
+
+
+                    <button class="suggestion-card">
+
+                        <span class="suggestion-icon chemistry-icon">
+                            ⚗
+                        </span>
+
+                        <span>
+                            <strong>Chemistry</strong>
+
+                            <small>
+                                Learn reactions and principles
+                            </small>
+                        </span>
+
+                    </button>
+
+
+                    <button class="suggestion-card">
+
+                        <span class="suggestion-icon computer-icon">
+                            ⌘
+                        </span>
+
+                        <span>
+                            <strong>Computer Science</strong>
+
+                            <small>
+                                Explore coding and technology
+                            </small>
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 CHAT CONVERSATION AREA
+            ================================== -->
+
+            <section
+                class="conversation-area"
+                id="conversationArea"
+                aria-label="Chat conversation">
+
+                <div
+                    class="chat-box"
+                    id="chatBox"
+                    aria-live="polite">
+
+                    <div class="message bot-message">
+Hello! I'm your AI study assistant. What would you like to learn today?
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 MESSAGE COMPOSER
+            ================================== -->
+
+            <section class="composer-section">
+
+
+                <!-- ATTACHMENT MENU -->
+                <div
+                    class="attachment-menu"
+                    id="attachmentMenu">
+
+                    <button
+                        type="button"
+                        id="uploadImageButton">
+
+                        <span>▧</span>
+                        Upload photo
+
+                    </button>
+
+                    <button
+                        type="button"
+                        id="uploadFileButton">
+
+                        <span>📎</span>
+                        Upload file
+
+                    </button>
+
+                </div>
+
+
+                <!-- MESSAGE INPUT FORM -->
+                <form
+                    class="input-area"
+                    id="chatForm">
+
+                    <!-- ADD ATTACHMENT -->
+                    <button
+                        type="button"
+                        class="attach-button"
+                        id="attachButton"
+                        aria-label="Add attachment">
+
+                        ＋
+
+                    </button>
+
+
+                    <!-- TEXT INPUT -->
+                    <input
+                        type="text"
+                        id="userInput"
+                        placeholder="Ask anything about your studies..."
+                        autocomplete="off"
+                        aria-label="Write your message">
+
+
+                    <!-- INPUT ACTIONS -->
+                    <div class="composer-actions">
+
+                        <!-- IMAGE UPLOAD -->
+                        <button
+                            type="button"
+                            class="tool-button"
+                            id="imageButton"
+                            aria-label="Upload photo">
+
+                            ▧
+
+                        </button>
+
+
+                        <!-- FILE UPLOAD -->
+                        <button
+                            type="button"
+                            class="tool-button"
+                            id="fileButton"
+                            aria-label="Upload file">
+
+                            📎
+
+                        </button>
+
+
+                        <!-- MICROPHONE -->
+                        <button
+                            type="button"
+                            class="tool-button microphone-button"
+                            id="micButton"
+                            aria-label="Start voice input">
+
+                            🎙
+
+                        </button>
+
+
+                        <!-- SEND BUTTON -->
+                        <button
+                            type="submit"
+                            class="send-button"
+                            id="sendButton"
+                            aria-label="Send message">
+
+                            ↑
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- HIDDEN FILE INPUTS -->
+                    <input
+                        type="file"
+                        id="imageInput"
+                        accept="image/*"
+                        hidden>
+
+                    <input
+                        type="file"
+                        id="fileInput"
+                        accept=".pdf,.doc,.docx,.txt,.ppt,.pptx,.xls,.xlsx"
+                        hidden>
+
+                </form>
+
+
+                <!-- SELECTED ATTACHMENTS -->
+                <div
+                    class="selected-files"
+                    id="selectedFiles">
+                </div>
+
+
+                <!-- FOOTER NOTE -->
+                <p class="footer-note">
+                    AI can make mistakes.
+                    Please double-check responses.
+                </p>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- NOTIFICATION MESSAGE -->
+    <div
+        class="toast-message"
+        id="toastMessage"
+        role="status"
+        aria-live="polite">
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="chatbot.js"></script>
+
+</body>
+</html>
