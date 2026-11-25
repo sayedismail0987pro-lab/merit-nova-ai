@@ -1103,35 +1103,27 @@ input:focus-visible {
     border-radius: 14px;
 }
 
-/* Mobile Responsive Design */
-@media screen and (max-width: 768px) {
+/* Improve mobile chatbot input position */
+@media (max-width: 560px) {
 
-    .sidebar {
-        display: none;
+    .composer-section {
+        position: sticky;
+        bottom: 0;
+        z-index: 100;
+        width: calc(100% - 24px);
+        padding-top: 12px;
+        padding-bottom: 28px;
+        background: #f8f7fc;
     }
 
-    .main-content {
-        width: 100%;
-        margin-left: 0;
-        padding: 15px;
+    .input-area {
+        min-height: 65px;
+        border-radius: 18px;
     }
 
-    .container {
-        width: 100%;
-        display: block;
-    }
-
-    .subjects,
-    .subject-grid,
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
-
-    body {
-        overflow-x: hidden;
-    }
-
-    h1 {
-        font-size: 25px;
+    .input-area input[type="text"] {
+        height: 48px;
+        font-size: 15px;
     }
 }
+
