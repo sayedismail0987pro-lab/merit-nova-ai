@@ -1634,3 +1634,35 @@ body.dark-theme .selected-file {
         opacity: 1;
     }
 }
+
+/* =========================================
+   MOBILE: MORE COMFORTABLE CHAT INPUT
+   ========================================= */
+
+@media (max-width: 800px) {
+
+    .composer-section {
+        width: 100%;
+        max-width: 100%;
+
+        margin: 0 auto 22px;
+
+        padding: 12px 14px 10px;
+    }
+
+    .input-area {
+        width: 100%;
+        min-height: 62px;
+
+        border-radius: 16px;
+    }
+
+    .input-area input[type="text"] {
+        font-size: 14px;
+    }
+
+    .footer-note {
+        margin-top: 8px;
+    }
+
+}
